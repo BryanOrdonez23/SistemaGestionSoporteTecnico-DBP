@@ -11,7 +11,7 @@ app.set('views', path.join(__dirname, 'views'));
 // rutas
 //app.use(require('./routes/rutas'));
 
-app.get('/',(req,res)=> {
+app.get('/login',(req,res)=> {
     res.sendFile(path.join(__dirname,'views','index.html'));
 });
 
