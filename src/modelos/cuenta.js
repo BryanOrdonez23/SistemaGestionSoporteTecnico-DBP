@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 mongoose.connect("mongodb://localhost/SistemaSoporte");
 
 var cuentaSchema = new Schema({
+  id_persona: String,
   usuario: String,
   password: String,
 });

@@ -1,0 +1,24 @@
+.right-space {
+  margin-right: 1em;
+}
+.remove-float {
+  float: none;
+}
+
+.big-top-space {
+  margin-top: 60px;
+}
+
+.top-space {
+  margin-top: 1.5em;
+}
+
+img{
+    margin-top: 3em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+body{
+    background-image: url('../imagenes/fn.jpg');
+}

@@ -23,5 +23,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // listening the Server
 app.listen(app.get('port'), () => {
-    console.log('servidor corriendo', app.get('port'));
+    console.log('INDEX servidor corriendo', app.get('port'));
   });
