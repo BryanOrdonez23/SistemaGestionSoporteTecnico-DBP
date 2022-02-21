@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="style/info.css">-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Fases</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-dark border-3 border-bottom border-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light fw-bold m-lg-2" href="#"><i
+                    class="bi bi-layout-three-columns m-lg-2"></i>FASES</a>
+            <button class="navbar-toggler btn btn-outline-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light m-lg-2" href="administrador/logout">Cerrar Sesi&oacute;n
+                            </span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--REVISION-->
+    <div class="row row-cols-1 row-cols-md-3 g-4 col-md-8 remove-float center-block big-top-space mx-auto mt-4">
+        <div class="col">
+            <div class="card">
+                <img src="/imagenes/revision.jpg" height="200" class="card-img-top" alt="Revision">
+                <div class="card-body">
+                    <h5 class="card-title">Revisión</h5>
+                    <p class="card-text">Se revisará el estado de su equipo e identificar una solución al problema</p>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                        data-bs-whatever="Revision">Detalle</a>
+                </div>
+            </div>
+        </div>
+
+        <!--MANTENIMIENTO-->
+        <div class="col">
+            <div class="card">
+                <img src="/imagenes/mantenimiento.jpg" height="200" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Mantenimiento</h5>
+                    <p class="card-text">Se ejecutará el soporte que solucinará el problema detectado</p>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                        data-bs-whatever="Mantenimiento">Detalle</a>
+                </div>
+            </div>
+        </div>
+
+        <!--ENTREGA-->
+        <div class="col">
+            <div class="card">
+                <img src="/imagenes/entrega.jpg" height="200" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Entrega</h5>
+                    <p class="card-text">El dispositivo será entregado en en total funcionamiento</p>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+                        data-bs-whatever="Entrega">Detalle</a>
+                </div>
+            </div>
+        </div>
+        
+        <a href="/app/administrador/fasesadmin/<%=disp%>/finalizarfase" class="btn btn-primary btn-lg active bi bi-check-circle mx-auto"> Finalizar Fase</a>
+
+        <!--MODAL REVISION-->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fase 1</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editarfase1" method="post">
+                            <div class="mb-3">   
+                                <input type="text" name="fase1" id="fase1" value="<%=fases[0]._id %>" hidden>                             
+                                <label for="inrevision" class="col-form-label">Nombre:</label>
+                                <input type="text" readonly class="form-control" id="inrevision" name="inrevision" value="Fase de Revisión">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Descripción:</label>
+                                <textarea  class="form-control" name="txtdescripcionRev" id="txtdescripcionRev"><%=fases[0].descripcion%></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Inicio:</label>
+                                <input readonly class="form-control" name="infechainicialRev" id="infechainicialRev" value="<%=fases[0].fecha_inicio%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Fin:</label>
+                                <input readonly class="form-control" name="infechafinalRev" id="infechafinalRev" value="<%=fases[0].fecha_final%>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Editar Fase</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--MODAL MANTENIMIENTO-->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fase 2</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editarfase2" method="post">
+                            <div class="mb-3">
+                                <input type="text" name="fase2" id="fase2" value="<%=fases[1]._id %>" hidden> 
+                                <label for="inmantenimiento" class="col-form-label">Nombre:</label>
+                                <input type="text" readonly class="form-control" id="inmantenimiento" name="inmantenimiento" value="Fase de Mantenimiento">
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtdescripcionMan" class="col-form-label">Descripción:</label>
+                                <textarea  class="form-control" name="txtdescripcionMan" id="txtdescripcionMan"><%=fases[1].descripcion %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Inicio:</label>
+                                <input readonly class="form-control" name="infechainicialMan" id="infechainicialMan" value="<%=fases[1].fecha_inicio %>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Fin:</label>
+                                <input readonly  class="form-control" name="infechafinalMan" id="infechafinalMan" value="<%=fases[1].fecha_final %>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Editar Fase</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--MODAL ENTREGA-->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fase 3</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editarfase3" method="post">
+                            <div class="mb-3">
+                                <input type="text" name="fase3" id="fase3" value="<%=fases[2]._id %>" hidden> 
+                                <label for="recipient-name" class="col-form-label">Nombre:</label>
+                                <input type="text" readonly class="form-control" id="inentrega" name="inentrega" value="Fase de Entrega">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Descripción:</label>
+                                <textarea  class="form-control" name="txtdescripcionEn" id="txtdescripcionEn"><%=fases[2].descripcion %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Inicio:</label>
+                                <input readonly class="form-control" name="infechainicialEn" id="infechainicialEn" value="<%=fases[2].fecha_inicio %>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Fecha de Fin:</label>
+                                <input readonly class="form-control" name="infechafinalEn" id="infechafinalEn" value="<%=fases[2].fecha_final %>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Editar Fase</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var exampleModal1 = document.getElementById('exampleModal1')
+        exampleModal1.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-whatever')
+            var modalTitle = exampleModal1.querySelector('.modal-title')
+            var modalBodyInput = exampleModal1.querySelector('.modal-body input')
+            //modalBodyInput.value = recipient
+        })
+        var exampleModal2 = document.getElementById('exampleModal2')
+        exampleModal2.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-whatever')
+            var modalTitle = exampleModal2.querySelector('.modal-title')
+            var modalBodyInput = exampleModal2.querySelector('.modal-body input')
+           // modalBodyInput.value = recipient
+        })
+        var exampleModal3 = document.getElementById('exampleModal3')
+        exampleModal3.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-whatever')
+            var modalTitle = exampleModal3.querySelector('.modal-title')
+            var modalBodyInput = exampleModal3.querySelector('.modal-body input')
+            //modalBodyInput.value = recipient
+        }) 
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+

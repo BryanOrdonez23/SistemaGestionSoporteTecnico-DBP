@@ -2,15 +2,18 @@ const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
 const path = require('path');
+const popup = require('node-popup');
 var session = require("express-session");
 const hostname = '127.0.0.1';
 const port = 3000;
 var rutasl = require('./routes/rutas');
 var session_middlewares = require("./middlewares/session");
+var admin_middlewares = require("./middlewares/administrador");
 
 //importando modelos
 var cuenta = require("./modelos/cuenta").cuenta;
 var persona = require("./modelos/Persona").persona;
+var fase = require("./modelos/fase").fase;
 
 //Middlewares
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,42 +31,55 @@ app.use(session({
 
 //login admin
 app.get('/admin', function(req, res) {
-  cuenta.find(function(err,doc){
-      console.log(doc);
-      res.render('loginadmin');        
-  });
+    res.render('loginadmin',{ message: null});   
 });
 app.post('/adminsingin', function(req, res) {
-  cuenta.findOne({usuario:req.body.user,password:req.body.password},function(err,docs){
-   if(docs == null){
-       res.send('No se pudo ingresar');
-   }else{
-       req.session.cuenta_id= docs._id;
-       persona.findOne({cedula:docs.id_persona},function(err,per){
-           if(per==null){
-                console.log(err);
-           }else{
-             req.session.persona_id= per._id;
-             console.log(req.session.persona_id);
-             res.render("app/inicio");
-           }           
-        });
-   }
-   });
+    if(req.body.user=='admin2' & req.body.password=='admin2'){
+        cuenta.findOne({usuario:"admin2",password:"admin2"},function(err,docs){
+            if(docs == null){
+                console.log(err); 
+                req.session.message = {
+                    type: 'danger',
+                    intro: 'Datos incorrectos. Vuelva a intentarlo',
+                }                  
+                res.render("loginadmin",{ message: req.session.message});
+            }else{
+                req.session.cuenta_id= docs._id;
+                persona.findOne({cedula:docs.id_persona},function(err,per){
+                    if(per==null){
+                         console.log(err);
+                    }else{
+                      req.session.persona_id= per._id;
+                      //console.log(req.session.persona_id);
+                      res.redirect("app/administrador");
+                    }           
+                 });
+            }
+            });
+    }else{
+        req.session.message = {
+            type: 'danger',
+            intro: 'Datos incorrectos. Vuelva a intentarlo',
+        }                  
+        res.render("loginadmin",{ message: req.session.message});
+    }
+
 });
 
 //login
 app.get('/login', function(req, res) {
-    cuenta.find(function(err,doc){
-        console.log(doc);
-        res.render('login');        
-    });
+    res.render('login',{ message: null});        
 });
 
 app.post('/singin', function(req, res) {
     cuenta.findOne({usuario:req.body.user,password:req.body.password},function(err,docs){
         if(docs == null){
-            res.send('No se pudo ingresar');
+            console.log(err); 
+            req.session.message = {
+                type: 'danger',
+                intro: 'Datos incorrectos. Vuelva a intentarlo',
+            }                  
+            res.render("login",{ message: req.session.message});
         }else{
             req.session.cuenta_id= docs._id;
             persona.findOne({cedula:docs.id_persona},function(err,per){
@@ -71,7 +87,7 @@ app.post('/singin', function(req, res) {
                      console.log(err);
                 }else{
                   req.session.persona_id= per._id;
-                  console.log(req.session.persona_id);
+                  //console.log(req.session.persona_id);
                   res.redirect("/app");
                 }           
              });
@@ -81,10 +97,7 @@ app.post('/singin', function(req, res) {
 
 // Registro
 app.get('/registro', function(req, res) {
-    persona.find(function(err,doc){
-        console.log(doc);
-        res.render('registro');
-    });
+    res.render('registro');
 });
 
 app.post('/nuevo', function(req, res) {
@@ -102,7 +115,7 @@ app.post('/nuevo', function(req, res) {
     cuentaaux.save().then(function(){
     }); 
     personaaux.save().then(function(us){
-        res.send("Guardamos tus datos");
+        res.redirect("/");
     },function(err){
         if(!err){
         console.log(String(err));
@@ -117,9 +130,11 @@ app.get('/', function(req, res) {
 
 //Usos
 app.use('/app', session_middlewares);
+app.use('/administrador', admin_middlewares);
 app.use('/app', rutasl);
-const dispositivo = require('./routes/dispositivoroute')
-app.use(dispositivo)
+app.use('/administrador', rutasl);
+const dispositivo = require('./routes/dispositivoroute');
+app.use(dispositivo);
 
 //Server
 app.listen(port, hostname, () => {

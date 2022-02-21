@@ -9,6 +9,12 @@
     <title>Login</title>
 </head>
 <body>
+    <%if (message) { %>
+        <div class=" text-center alert alert-danger" role="alert">            
+            <strong> <%=message.intro%></strong>
+           <strong><a href="/login">    X</a></strong> 
+          </div>
+    <% } %>
     <div class="">
         <img src="imagenes/login.png" width="200" height="200" class="" no repeat>
     </div>
@@ -18,16 +24,16 @@
         <form action="/singin" method="post">
             <div class="form-group top-space">
                 <b><label for="user" style="color: blanchedalmond; font-size: 25px;">Usuario</label></b>
-                <input type="text" name="user" placeholder="Usuario", id="user", class="form-control">
+                <input type="text" name="user" placeholder="Usuario", id="user", class="form-control" required>
             </div>        
             <div class="top-space">
                 <b><label for="pass" style="color: blanchedalmond; font-size: 25px;">Contraseña</label></b>
-                <input type="password" name="password" placeholder="Contraseña", id="pass", class="form-control">
+                <input type="password" name="password" placeholder="Contraseña", id="pass", class="form-control" required>
             </div >
             <div class="top-space text-center d-grid gap-2 col-6 mx-auto" >
                 <input type="submit" class="btn btn-primary" style="font-weight: 700;font-size: 25px;" value="Iniciar Sesión">
+                <a  style="color: darkblue; font-size: 15px;" href="/registro">Crear una cuenta</a>
             </div>
-            
         </form>
     </div>   
     
