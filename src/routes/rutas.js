@@ -35,8 +35,14 @@ router.get("/administrador/fasesadmin/:id", function (req, res) {
       console.log(err);
       res.redirect("/admin");
     } else {
-      const disp = req.params.id;
-      res.render("app/Fases", {fases, disp});
+      dispositivo.findById(req.params.id, (error, dispositivo)=>{
+        if(error) {
+            console.log(err);
+        }else{    
+          const disp = req.params.id;
+          res.render("app/Fases", {fases, disp, dispositivo});
+        }
+      });
     }
   });
 });
@@ -72,7 +78,13 @@ router.get("/fases/:id", function (req, res) {
       console.log(err);
       res.redirect("/login");
     } else {
-      res.render("app/FasesCliente", { fases });
+      dispositivo.findById(req.params.id, (error, dispositivo)=>{
+        if(error) {
+            console.log(err);
+        }else{    
+          res.render("app/FasesCliente", { fases, dispositivo });
+        }
+      });      
     }
   });
 });
@@ -183,4 +195,11 @@ router.get("/administrador/logout", function (req, res) {
   req.session.destroy();
   res.redirect("/admin");
 });
+
+// Registro administradores
+router.get("/administrador/registroadmin", function (req, res) {
+  res.render("app/registroadmin");
+});
+
+
 module.exports = router;
