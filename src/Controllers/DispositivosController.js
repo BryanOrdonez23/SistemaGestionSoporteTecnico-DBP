@@ -76,13 +76,13 @@ module.exports.crear = (req, res)=>{
 
 //Editar
 module.exports.editar = (req,res)=>{
-    const modelo = req.body.id_editar
-    const marca = req.body.nombre_editar
-    const color = req.body.edad_editar
-    const almacenamiento = req.body.edad_editar
-    const ram = req.body.edad_editar
-    const estado = req.body.edad_editar
-    const observacion = req.body.edad_editar
+   // const modelo = req.body.id_editar
+  //  const marca = req.body.nombre_editar
+  //  const color = req.body.edad_editar
+  //  const almacenamiento = req.body.edad_editar
+  //  const ram = req.body.edad_editar
+   // const estado = req.body.edad_editar
+   // const observacion = req.body.edad_editar
     Dispositivo.findByIdAndUpdate(id, {nombre, edad}, (error, alumno)=>{
         if(error){
             return res.status(500).json({
@@ -93,7 +93,7 @@ module.exports.editar = (req,res)=>{
     })
 }
 module.exports.editarfase1 = (req,res)=>{
-    const id = req.body.fase1;
+    //const id = req.body.fase1;
     const id_dispositivop = req.params.id;
     const nombrep = req.body.inrevision;
     const descripcionp = req.body.txtdescripcionRev;
@@ -135,7 +135,7 @@ module.exports.editarfase1 = (req,res)=>{
 
 
 module.exports.editarfase2 = (req,res)=>{
-    const id = req.body.fase2;
+  //  const id = req.body.fase2;
     const id_dispositivop = req.params.id;
     const nombrep = req.body.inmantenimiento;
     const descripcionp = req.body.txtdescripcionMan;
@@ -176,7 +176,7 @@ module.exports.editarfase2 = (req,res)=>{
 }
 
 module.exports.editarfase3 = (req,res)=>{
-    const id = req.body.fase3;
+    //const id = req.body.fase3;
     const id_dispositivop = req.params.id;
     const nombrep = req.body.inentrega;
     const descripcionp = req.body.txtdescripcionEn;
